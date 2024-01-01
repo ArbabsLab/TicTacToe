@@ -1,7 +1,7 @@
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.EventQueue;
-import javax.swing.Timer;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
@@ -11,6 +11,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 
+/*
+TicTacToe Game
+@file TicTacToe.java
+@author Arbab Husain, Daniel Rappaport, Junaet Mahbub
+@version 1.03 Dec, 2023
+*/
 
 public class TicTacToe {
     //initialize an array of buttons in a 5x5 arrangement
@@ -27,9 +33,7 @@ public class TicTacToe {
     JLabel player0Label;
     JLabel player1Label;
     JLabel player2Label;
-
-    //Declares a delay timer to prevent instant clearing of board after win
-    Timer delayTimer;
+    JLabel currentTurn; 
 
     //Function converting the playerID into a turn count
     public int turn(int count){
@@ -69,11 +73,14 @@ public class TicTacToe {
             buttons[2][j].getText().equals(buttons[3][j].getText()) &&
             buttons[2][j].getText().equals(buttons[4][j].getText()))
             )
-            {return true;}
+            {
+
+                return true;
+            }
         }
     
 
-    // Check diagonals to see if there is a win
+    // Check 5 length diagonals to see if there is a win
     if (    (!buttons[0][0].getText().isEmpty() &&
             buttons[0][0].getText().equals(buttons[1][1].getText()) &&
             buttons[0][0].getText().equals(buttons[2][2].getText()))
@@ -86,67 +93,71 @@ public class TicTacToe {
             buttons[2][2].getText().equals(buttons[3][3].getText()) &&
             buttons[2][2].getText().equals(buttons[4][4].getText()))
             ||
-            (!buttons[0][1].getText().isEmpty() &&
+            (!buttons[0][4].getText().isEmpty() &&
+            buttons[0][4].getText().equals(buttons[1][3].getText()) &&
+            buttons[0][4].getText().equals(buttons[2][2].getText()))
+            ||
+            (!buttons[1][3].getText().isEmpty() &&
+            buttons[1][3].getText().equals(buttons[2][2].getText()) &&
+            buttons[1][3].getText().equals(buttons[3][1].getText()))
+            ||
+            (!buttons[2][2].getText().isEmpty() &&
+            buttons[2][2].getText().equals(buttons[3][1].getText()) &&
+            buttons[2][2].getText().equals(buttons[4][0].getText()))
+            ) 
+            {return true;}
+
+            //check 4 length diagonals for win
+    if (    (!buttons[0][1].getText().isEmpty() &&
             buttons[0][1].getText().equals(buttons[1][2].getText()) &&
             buttons[0][1].getText().equals(buttons[2][3].getText()))
-            ||
-            (!buttons[1][0].getText().isEmpty() &&
-            buttons[1][0].getText().equals(buttons[2][1].getText()) &&
-            buttons[1][0].getText().equals(buttons[3][2].getText()))
             ||
             (!buttons[1][2].getText().isEmpty() &&
             buttons[1][2].getText().equals(buttons[2][3].getText()) &&
             buttons[1][2].getText().equals(buttons[3][4].getText()))
             ||
+            (!buttons[1][0].getText().isEmpty() &&
+            buttons[1][0].getText().equals(buttons[2][1].getText()) &&
+            buttons[1][0].getText().equals(buttons[3][2].getText()))
+            ||
             (!buttons[2][1].getText().isEmpty() &&
-            buttons[2][1].getText().equals(buttons[4][3].getText()) &&
-            buttons[2][1].getText().equals(buttons[3][2].getText()))
+            buttons[2][1].getText().equals(buttons[3][2].getText()) &&
+            buttons[2][1].getText().equals(buttons[4][3].getText()))
             ||
-            (!buttons[0][2].getText().isEmpty() &&
-            buttons[0][2].getText().equals(buttons[1][3].getText()) &&
-            buttons[0][2].getText().equals(buttons[2][4].getText()))
+            (!buttons[0][3].getText().isEmpty() &&
+            buttons[0][3].getText().equals(buttons[1][2].getText()) &&
+            buttons[0][3].getText().equals(buttons[2][1].getText()))
             ||
-            (!buttons[2][0].getText().isEmpty() &&
-            buttons[2][0].getText().equals(buttons[4][2].getText()) &&
-            buttons[2][0].getText().equals(buttons[3][1].getText()))
+            (!buttons[1][2].getText().isEmpty() &&
+            buttons[1][2].getText().equals(buttons[2][1].getText()) &&
+            buttons[1][2].getText().equals(buttons[3][0].getText()))
+            ||
+            (!buttons[1][4].getText().isEmpty() &&
+            buttons[1][4].getText().equals(buttons[2][3].getText()) &&
+            buttons[1][4].getText().equals(buttons[3][2].getText()))
+            ||
+            (!buttons[2][3].getText().isEmpty() &&
+            buttons[2][3].getText().equals(buttons[3][2].getText()) &&
+            buttons[2][3].getText().equals(buttons[4][1].getText()))
             ) 
             {return true;}
-
-    if (    (!buttons[4][0].getText().isEmpty() &&
-            buttons[4][0].getText().equals(buttons[1][1].getText()) &&
-            buttons[4][0].getText().equals(buttons[2][2].getText()))
-            ||
-            (!buttons[3][1].getText().isEmpty() &&
-            buttons[3][1].getText().equals(buttons[2][2].getText()) &&
-            buttons[3][1].getText().equals(buttons[1][3].getText()))
-            ||
-            (!buttons[2][2].getText().isEmpty() &&
-            buttons[2][2].getText().equals(buttons[1][3].getText()) &&
-            buttons[2][2].getText().equals(buttons[0][4].getText()))
-            ||
-            (!buttons[3][0].getText().isEmpty() &&
-            buttons[3][0].getText().equals(buttons[2][1].getText()) &&
-            buttons[3][0].getText().equals(buttons[1][2].getText()))
-            ||
-            (!buttons[2][1].getText().isEmpty() &&
-            buttons[2][1].getText().equals(buttons[1][2].getText()) &&
-            buttons[2][1].getText().equals(buttons[0][3].getText()))
-            ||
-            (!buttons[3][2].getText().isEmpty() &&
-            buttons[3][2].getText().equals(buttons[2][3].getText()) &&
-            buttons[3][2].getText().equals(buttons[1][4].getText()))
-            ||
-            (!buttons[4][1].getText().isEmpty() &&
-            buttons[4][1].getText().equals(buttons[2][3].getText()) &&
-            buttons[4][1].getText().equals(buttons[3][2].getText()))
-            ||
-            (!buttons[4][2].getText().isEmpty() &&
-            buttons[4][2].getText().equals(buttons[3][3].getText()) &&
-            buttons[4][2].getText().equals(buttons[2][4].getText()))
+        
+            //check 3 length diagonals for win
+        if ((!buttons[2][0].getText().isEmpty() &&
+            buttons[2][0].getText().equals(buttons[3][1].getText()) &&
+            buttons[2][0].getText().equals(buttons[4][2].getText()))
             ||
             (!buttons[2][0].getText().isEmpty() &&
             buttons[2][0].getText().equals(buttons[1][1].getText()) &&
             buttons[2][0].getText().equals(buttons[0][2].getText()))
+            ||
+            (!buttons[2][4].getText().isEmpty() &&
+            buttons[2][4].getText().equals(buttons[3][3].getText()) &&
+            buttons[2][4].getText().equals(buttons[4][2].getText()))
+            ||
+            (!buttons[2][4].getText().isEmpty() &&
+            buttons[2][4].getText().equals(buttons[1][3].getText()) &&
+            buttons[2][4].getText().equals(buttons[0][2].getText()))
             ) 
             {return true;}
 
@@ -156,9 +167,30 @@ public class TicTacToe {
     //Function to update the score on the GUI
     public void updateScoreLabels() {
     // Update the JLabels displaying the scores
-    player0Label.setText("Player O:     " + scorePlayer0);
-    player1Label.setText("Player X:     " + scorePlayer1);
-    player2Label.setText("Player Y:     " + scorePlayer2);
+	    player0Label.setText("Player O:     " + scorePlayer0);
+	    player1Label.setText("Player X:     " + scorePlayer1);
+	    player2Label.setText("Player Y:     " + scorePlayer2);
+	    if ((scorePlayer0 > scorePlayer1) && (scorePlayer0 > scorePlayer2)) {
+	    	player0Label.setForeground(Color.green);
+	    }
+	    else {
+	    	player0Label.setForeground(Color.white);
+	    }
+	    
+	    if ((scorePlayer1 > scorePlayer0) && (scorePlayer1 > scorePlayer2)) {
+	    	player1Label.setForeground(Color.green);
+	    }
+	    else {
+	    	player1Label.setForeground(Color.white);
+	    }
+	    
+	    if ((scorePlayer2 > scorePlayer0) && (scorePlayer2 > scorePlayer1)) {
+	    	player2Label.setForeground(Color.green);
+	    }
+	    else {
+	    	player2Label.setForeground(Color.white);
+	    }
+
     }
 
     //Function to update the score of the winner of each round
@@ -185,10 +217,29 @@ public class TicTacToe {
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 buttons[i][j].setText("");
+                currentTurn.setText("Click New Game");
             }
         }
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+            buttons[i][j].setEnabled(false);
+            }
+        }    
         
         };
+    
+        //function to check if the game ended in a tie
+    public boolean checkTie(){
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                if(buttons[i][j].getText().isEmpty()){
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
 
    public TicTacToe(){
         
@@ -196,21 +247,17 @@ public class TicTacToe {
         JFrame board = new JFrame();
         JPanel gameContainer = new JPanel();
         JPanel scoreContainer = new JPanel();
+        scoreContainer.setBackground(Color.gray);
         JPanel resetContainer = new JPanel();
+        JPanel playerMoveContainer = new JPanel();
 
         //initializes each grid in the board as a button
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 buttons[i][j] = new JButton();
+//buttons[i][j].setText(i + ", " + j);
             }
         }
-        
-        //sets rules for delay timer after a win
-        delayTimer = new Timer(1000, e -> {
-            clearBoard();
-            delayTimer.stop(); // Stop the timer after clearing the board
-            playerID = 0; // Reset player turn after the delay
-        });
 
         //Actionlistener which places the correct symbols depending on whose turn it is
          ActionListener actionListener = new ActionListener() {
@@ -219,23 +266,44 @@ public class TicTacToe {
                 JButton clickedButton = (JButton) e.getSource();
                 if(clickedButton.getText().isEmpty()){
 
-                    //Checks which player's turn it is and puts their appropriate symbol on the button
+                    //Says which player's turn it is and puts their appropriate symbol on the button 
                     if(turn(playerID) == 0){
                     clickedButton.setText("O");
+                    currentTurn.setText("X Turn");
                     }
                     else if (turn(playerID) == 1){
                     clickedButton.setText("X");
+                    currentTurn.setText("Y Turn");
                     }
                     else {
                     clickedButton.setText("Y");
+                    currentTurn.setText("O Turn");
                     
                     }
                     
-                    //Checks to see if the player that just went won the game so it can clear the board and update the score, or else it just goes to the next players turn
+                    //Says which player won and updates the score, or else it just goes to the next players turn
                     if(checkWin()){
                         scoreUpdate(playerID);
-                        clickedButton.setForeground(Color.GREEN);
-                        delayTimer.start(); // starts delay timer so the win can be seen for a second before the board is cleared
+
+                        if(turn(playerID) == 0) {
+                            currentTurn.setText("O Won");
+                        }
+                        else if(turn(playerID) == 1) {
+                            currentTurn.setText("X Won");
+                        }
+                        else {
+                            currentTurn.setText("Y Won");
+                        }
+
+                        for (int i = 0; i < 5; i++) {
+                            for (int j = 0; j < 5; j++) {
+                                buttons[i][j].setEnabled(false);
+                            }
+                        }
+                        
+                    }
+                    else if(checkTie()){
+                        currentTurn.setText("Game Tied");
                     }
                     else{playerID++;}
                 }
@@ -249,38 +317,51 @@ public class TicTacToe {
             }
         }
 
+        playerMoveContainer.setLayout(new FlowLayout());
+        playerMoveContainer.setPreferredSize(new Dimension(250, 30));
+        currentTurn = new JLabel();
+        currentTurn.setText("O Turn");
+        playerMoveContainer.add(currentTurn);
+
+
         //Formats the gameContainer to add the buttons
         gameContainer.setLayout(new GridLayout(5, 5));
         gameContainer.setPreferredSize(new Dimension(250, 250));
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 buttons[i][j].setPreferredSize(new Dimension(50, 50));
+                buttons[i][j].setBorder(BorderFactory.createLineBorder(Color.black));
                 gameContainer.add(buttons[i][j]);
             }
         }
+
+
 
 
         //Format score container to have player names
        scoreContainer.setLayout(new GridLayout(3, 1, 0, 50));
        scoreContainer.setPreferredSize(new Dimension(100, 250));
 
-        player0Label = new JLabel("Player O:    " + scorePlayer0);
-        player1Label = new JLabel("Player X:    " + scorePlayer1);
-        player2Label = new JLabel("Player Y:    " + scorePlayer2);
-
+        player0Label = new JLabel("Player O:     " + scorePlayer0, JLabel.CENTER);
+        player1Label = new JLabel("Player X:     " + scorePlayer1, JLabel.CENTER);
+        player2Label = new JLabel("Player Y:     " + scorePlayer2, JLabel.CENTER);
+        player0Label.setForeground(Color.white);
+        player1Label.setForeground(Color.white);
+        player2Label.setForeground(Color.white);
         scoreContainer.add(player0Label);
         scoreContainer.add(player1Label);
         scoreContainer.add(player2Label);
 
         //Format resetContainer to display reset button
         resetContainer.setLayout(new FlowLayout());
-        resetContainer.setPreferredSize(new Dimension(300, 100));
+        resetContainer.setPreferredSize(new Dimension(500, 100));
         JButton resetButton = new JButton("Reset Score");
-        JButton clearBoardButton = new JButton("Clear Board");
+        JButton newGameButton = new JButton("New Game");
+        newGameButton.setPreferredSize(new Dimension(125,75));
         resetButton.setPreferredSize(new Dimension(125, 75));
-        clearBoardButton.setPreferredSize(new Dimension(125, 75));
+
         
-        //Actionlistener specifically for the reset button to reset the score and clear the board
+        //Actionlistener specifically for the reset button to reset the score and start new game
         resetButton.addActionListener(new ActionListener() {
          @Override
         public void actionPerformed(ActionEvent abe) {
@@ -292,18 +373,38 @@ public class TicTacToe {
         }
         });
 
-        clearBoardButton.addActionListener(new ActionListener() {
+        //Actionlistener specifically for the newGame button to clear the board and start a new game to play
+        newGameButton.addActionListener(new ActionListener() {
          @Override
         public void actionPerformed(ActionEvent abce) {
             clearBoard();
+            if(turn(playerID) == 0) {
+                currentTurn.setText("O Turn");
+            }
+            else if(turn(playerID) == 1) {
+                currentTurn.setText("X Turn");
+            }
+            else {
+                currentTurn.setText("Y Turn");
+            }
+
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 5; j++) {
+                    buttons[i][j].setEnabled(true);
+                }
+            }
+            
         }
         });
 
-        resetContainer.add(clearBoardButton);
+
+        resetContainer.add(newGameButton);
         resetContainer.add(resetButton);
+    
         
         //Format the empty board with all the information panels
         board.setLayout(new FlowLayout());
+        board.add(playerMoveContainer);
         board.add(gameContainer);
         board.add(scoreContainer);
         board.add(resetContainer);
@@ -313,7 +414,7 @@ public class TicTacToe {
         board.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         board.setTitle("TicTacToe");
         //board.setSize(500, 500);
-        board.setMinimumSize(new Dimension(400, 400));
+        board.setMinimumSize(new Dimension(450, 430));
         board.setMaximumSize(new Dimension(500, 450));
         board.setVisible(true);
         
@@ -335,9 +436,5 @@ public class TicTacToe {
 			}
 		});
     }
-
-
-
-
 
 }
